@@ -2,7 +2,7 @@ import React from "react";
 import { Icons } from "@/components/Icons";
 import { FakeAvatar, Stars } from "@/components/shared";
 import { Faq } from "@/components/Faq";
-import Header from "@/components/layouts/header";
+import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
 
 export default function PageLanding() {
@@ -170,7 +170,7 @@ export default function PageLanding() {
 
       {/* Features grid — bento */}
       <section className="relative overflow-hidden bg-brand px-6 py-22 text-white nav:px-12">
-        <div className="absolute -right-35 -top-35 text-white opacity-[0.04]">
+        <div className="absolute -right-35 -top-35 text-white opacity-4">
           <Icons.Scale size={560} />
         </div>
         <div className="relative mx-auto max-w-7xl">
@@ -246,8 +246,8 @@ export default function PageLanding() {
               title="Immutable audit log"
               desc="Every action — who, what, when, from where — captured as cryptographically-chained evidence your review panels can trust."
             >
-              <div className="mt-auto overflow-hidden rounded-xl border border-white/[0.08] bg-black/[0.22]">
-                <div className="flex items-center justify-between border-b border-white/[0.08] px-3 py-2.25">
+              <div className="mt-auto overflow-hidden rounded-xl border border-white/8 bg-black/22">
+                <div className="flex items-center justify-between border-b border-white/8 px-3 py-2.25">
                   <span className="text-[11px] font-semibold text-white/85">Audit log · live</span>
                   <span className="inline-flex items-center gap-1.25 text-[10px] font-semibold text-[#9FD3B8]">
                     <span className="h-1.25 w-1.25 rounded-full bg-[#9FD3B8]" /> Immutable
@@ -284,7 +284,7 @@ export default function PageLanding() {
               title="Authentication gateways"
               desc="Pluggable SSO per tenant — Microsoft, Google, or custom OIDC."
             >
-              <div className="mt-3.5 flex items-center gap-2 rounded-[9px] border border-white/[0.08] bg-black/20 px-2.75 py-2">
+              <div className="mt-3.5 flex items-center gap-2 rounded-[9px] border border-white/8 bg-black/20 px-2.75 py-2">
                 <Icons.Lock size={13} style={{ color: "#9FD3B8" }} />
                 <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-[10.5px] text-white/75">
                   sso.northridge.edu/app-auth
@@ -300,7 +300,7 @@ export default function PageLanding() {
               title="Redirect gateways"
               desc="Return traffic to tenant-owned URLs without leaving the app shell."
             >
-              <div className="mt-3.5 flex items-center gap-2 rounded-[9px] border border-white/[0.08] bg-black/20 px-2.75 py-2">
+              <div className="mt-3.5 flex items-center gap-2 rounded-[9px] border border-white/8 bg-black/20 px-2.75 py-2">
                 <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-[10px] text-white/75">
                   resolverite://…/callback
                 </span>
@@ -333,13 +333,13 @@ export default function PageLanding() {
             </FeatCard>
 
             {/* Mobile + Web — full width */}
-            <div className="col-span-2 flex flex-wrap items-center gap-6 rounded-card border border-white/[0.09] bg-white/[0.05] px-6 py-5 nav:col-span-6">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[11px] bg-white/[0.08] text-gold">
+            <div className="col-span-2 flex flex-wrap items-center gap-6 rounded-card border border-white/9 bg-white/5 px-6 py-5 nav:col-span-6">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[11px] bg-white/8 text-gold">
                 <Icons.Phone size={20} />
               </div>
               <div className="min-w-55 flex-1">
                 <div className="w-h3 text-[18px] text-white">One platform, two front doors</div>
-                <div className="mt-0.75 text-[14px] leading-[1.5] text-white/70">
+                <div className="mt-0.75 text-[14px] leading-normal text-white/70">
                   A native-feeling iOS &amp; Android app for students, and a full standalone CRM for
                   your moderators and review panels.
                 </div>
@@ -352,7 +352,7 @@ export default function PageLanding() {
                 ].map((p) => (
                   <span
                     key={p.l}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.08] px-3 py-1.75 text-[12px] font-semibold text-white"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-white/8 px-3 py-1.75 text-[12px] font-semibold text-white"
                   >
                     {p.ic}
                     {p.l}
@@ -396,7 +396,7 @@ export default function PageLanding() {
 
       {/* Security */}
       <section className="bg-surface px-6 py-22 nav:px-12">
-        <div className="mx-auto max-w-320">
+        <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-8">
             <div className="max-w-150">
               <div className="w-eyebrow">Security &amp; compliance</div>
@@ -557,7 +557,7 @@ export default function PageLanding() {
 
       {/* Testimonials */}
       <section className="bg-surface px-6 py-22 nav:px-12">
-        <div className="mx-auto max-w-320">
+        <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-160 text-center">
             <div className="w-eyebrow">Loved by the people who run it</div>
             <h2 className="w-h1 mt-3">
@@ -570,7 +570,7 @@ export default function PageLanding() {
           <div className="mt-12 grid grid-cols-1 gap-4 nav:grid-cols-[1.5fr_1fr]">
             {/* Featured quote with metrics */}
             <div className="relative overflow-hidden rounded-card-lg bg-[linear-gradient(160deg,var(--rr-brand)_0%,var(--rr-brand-strong)_100%)] px-11 py-10 text-white">
-              <div className="absolute -right-10 -top-10 opacity-[0.07]">
+              <div className="absolute -right-10 -top-10 opacity-7">
                 <Icons.Scale size={260} />
               </div>
               <div className="relative">
@@ -588,7 +588,7 @@ export default function PageLanding() {
                     </div>
                   </div>
                 </div>
-                <div className="mt-7 flex flex-wrap gap-10 border-t border-white/[0.12] pt-6">
+                <div className="mt-7 flex flex-wrap gap-10 border-t border-white/12 pt-6">
                   {(
                     [
                       ["88%", "backlog cleared"],
@@ -677,7 +677,7 @@ export default function PageLanding() {
 
       {/* Pricing */}
       <section className="px-6 pb-22 pt-18 nav:px-12">
-        <div className="mx-auto max-w-320">
+        <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-160 text-center">
             <div className="w-eyebrow">Plans</div>
             <h2 className="w-h1 mt-3">Pay for the seats that need it. Not per&nbsp;case.</h2>
@@ -779,7 +779,7 @@ export default function PageLanding() {
 
       {/* FAQ */}
       <section className="bg-surface px-6 py-18 nav:px-12">
-        <div className="mx-auto grid max-w-320 grid-cols-1 items-start gap-10 nav:grid-cols-[1fr_1.4fr] nav:gap-16">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 nav:grid-cols-[1fr_1.4fr] nav:gap-16">
           <div>
             <div className="w-eyebrow">FAQ</div>
             <h2 className="w-h1 mt-3">Frequently asked.</h2>
@@ -925,17 +925,17 @@ function PhoneFan() {
   return (
     <div className="relative flex h-150 w-140 max-w-full items-center justify-center">
       {/* soft glow behind */}
-      <div className="absolute h-110 w-110 rounded-full bg-[radial-gradient(circle,var(--rr-brand-soft)_0%,transparent_70%)] blur-[8px]" />
+      <div className="absolute h-110 w-110 rounded-full bg-[radial-gradient(circle,var(--rr-brand-soft)_0%,transparent_70%)] blur-sm" />
       {/* left phone — pick a category, rotated back */}
-      <div className="absolute left-1.5 top-19.5 z-[1] -rotate-[9deg]">
+      <div className="absolute left-1.5 top-19.5 z-1 -rotate-9">
         <Phone w={196} img={cat} alt="Student app — choose a complaint category" />
       </div>
       {/* right phone — sub-questions, rotated forward */}
-      <div className="absolute right-1.5 top-19.5 z-[1] rotate-[9deg]">
+      <div className="absolute right-1.5 top-19.5 z-1 rotate-9">
         <Phone w={196} img={sub} alt="Student app — branching follow-up questions" />
       </div>
       {/* center phone — pick a question, forward */}
-      <div className="relative z-[3] -translate-y-2.5">
+      <div className="relative z-3 -translate-y-2.5">
         <Phone w={238} img={q} alt="Student app — pick a question" />
       </div>
     </div>
@@ -960,22 +960,22 @@ function FeatCard({
   return (
     <div
       className={
-        "flex flex-col rounded-card border border-white/[0.09] bg-white/[0.05] p-5.5 " +
+        "flex flex-col rounded-card border border-white/9 bg-white/5 p-5.5 " +
         className
       }
     >
       <div className="flex items-center gap-2.5">
-        <div className="flex h-9.5 w-9.5 shrink-0 items-center justify-center rounded-[10px] bg-white/[0.08] text-gold">
+        <div className="flex h-9.5 w-9.5 shrink-0 items-center justify-center rounded-[10px] bg-white/8 text-gold">
           {icon}
         </div>
         {eyebrow && (
-          <span className="text-[10.5px] font-semibold uppercase tracking-[0.1em] text-gold">
+          <span className="text-[10.5px] font-semibold uppercase tracking-widest text-gold">
             {eyebrow}
           </span>
         )}
       </div>
       <div className="w-h3 mt-4 text-[18px] text-white">{title}</div>
-      <div className="mt-1.5 text-[13.5px] leading-[1.5] text-white/70">{desc}</div>
+      <div className="mt-1.5 text-[13.5px] leading-normal text-white/70">{desc}</div>
       {children}
     </div>
   );
