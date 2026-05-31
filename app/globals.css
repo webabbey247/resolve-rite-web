@@ -1,0 +1,320 @@
+/* globals.css — ResolveRite design tokens, Tailwind theme bridge + dark mode */
+
+@import "tailwindcss";
+
+/* Class-based dark mode: `dark:` variants apply under a `.dark` ancestor. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Bridge the runtime CSS variables into Tailwind's theme.
+   Each color/radius token points at a runtime --rr- variable, so the
+   generated utilities re-theme automatically in dark mode. */
+@theme {
+  --color-bg: var(--rr-bg);
+  --color-surface: var(--rr-surface);
+  --color-surface-2: var(--rr-surface-2);
+
+  --color-brand: var(--rr-brand);
+  --color-brand-strong: var(--rr-brand-strong);
+  --color-brand-ink: var(--rr-brand-ink);
+  --color-brand-soft: var(--rr-brand-soft);
+  --color-gold: var(--rr-gold);
+  --color-gold-soft: var(--rr-gold-soft);
+
+  --color-success: var(--rr-success);
+  --color-success-soft: var(--rr-success-soft);
+  --color-danger: var(--rr-danger);
+
+  --color-ink: var(--rr-ink);
+  --color-ink-2: var(--rr-ink-2);
+  --color-muted: var(--rr-muted);
+  --color-faint: var(--rr-faint);
+
+  --color-line: var(--rr-line);
+  --color-line-strong: var(--rr-line-strong);
+
+  --font-serif: var(--rr-serif);
+  --font-sans: var(--rr-sans);
+
+  --radius-card: var(--w-radius);
+  --radius-card-lg: var(--w-radius-lg);
+
+  --breakpoint-nav: 920px;
+}
+
+/* ── Light theme (default) ──────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --rr-bg: #f7f4ef;
+  --rr-surface: #ffffff;
+  --rr-surface-2: #f1ece4;
+
+  /* Brand (navy) — `brand` is the structural fill, `brand-ink` the
+     foreground accent (text/icons). They diverge only in dark mode. */
+  --rr-brand: #1e3a5f;
+  --rr-brand-ink: #1e3a5f;
+  --rr-brand-strong: #142b49;
+  --rr-brand-soft: rgba(30, 58, 95, 0.09);
+  --rr-gold: #b5895b;
+  --rr-gold-soft: rgba(181, 137, 91, 0.16);
+
+  /* Status */
+  --rr-success: #3f7559;
+  --rr-success-soft: rgba(63, 117, 89, 0.13);
+  --rr-danger: #9c3b2e;
+
+  /* Ink / text */
+  --rr-ink: #1b2435;
+  --rr-ink-2: #404a5c;
+  --rr-muted: #6c7686;
+  --rr-faint: #9aa3b2;
+
+  /* Lines */
+  --rr-line: #e7e1d8;
+  --rr-line-strong: #d6cfc3;
+
+  /* Type + radii */
+  --rr-serif: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
+  --rr-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  --w-radius: 14px;
+  --w-radius-lg: 20px;
+
+  color-scheme: light;
+}
+
+/* ── Dark theme ─────────────────────────────────────────────── */
+.dark {
+  --rr-bg: #0c121d;
+  --rr-surface: #141c2b;
+  --rr-surface-2: #1d2638;
+
+  /* Fill stays navy (bento/footer/buttons read as deep panels on the
+     darker page); the foreground accent brightens so it's legible. */
+  --rr-brand: #21436e;
+  --rr-brand-ink: #7aa7dc;
+  --rr-brand-strong: #0a0f18;
+  --rr-brand-soft: rgba(122, 167, 220, 0.16);
+  --rr-gold: #cca36a;
+  --rr-gold-soft: rgba(204, 163, 106, 0.18);
+
+  --rr-success: #5fa97e;
+  --rr-success-soft: rgba(95, 169, 126, 0.18);
+  --rr-danger: #c8674f;
+
+  --rr-ink: #eef1f6;
+  --rr-ink-2: #c1cad7;
+  --rr-muted: #8a93a4;
+  --rr-faint: #697285;
+
+  --rr-line: #273245;
+  --rr-line-strong: #38445c;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--rr-sans);
+  background: var(--rr-bg);
+  color: var(--rr-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ── Typography (component classes — reused widely) ─────────── */
+
+.w-display {
+  font-family: var(--rr-serif);
+  font-size: clamp(40px, 4.4vw, 58px);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  color: var(--rr-ink);
+  margin: 0;
+}
+
+.w-h1 {
+  font-family: var(--rr-serif);
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  color: var(--rr-ink);
+  margin: 0;
+}
+
+.w-h3 {
+  font-family: var(--rr-serif);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  color: var(--rr-ink);
+  line-height: 1.25;
+}
+
+.w-lead {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--rr-ink-2);
+  margin: 0;
+}
+
+.w-body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--rr-ink-2);
+  margin: 0;
+}
+
+.w-meta {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--rr-muted);
+}
+
+.w-eyebrow {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--rr-gold);
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+
+.w-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  transition: background 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease, opacity 0.16s ease;
+}
+
+.w-btn:active {
+  transform: translateY(1px);
+}
+
+.w-btn-sm {
+  height: 36px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+.w-btn-lg {
+  height: 50px;
+  padding: 0 24px;
+  font-size: 15px;
+  border-radius: 12px;
+}
+
+.w-btn-primary {
+  background: var(--rr-brand);
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(20, 43, 73, 0.18);
+}
+
+.w-btn-primary:hover {
+  background: var(--rr-brand-strong);
+}
+
+.dark .w-btn-primary:hover {
+  background: #2c5388;
+}
+
+.w-btn-ghost {
+  background: var(--rr-surface);
+  color: var(--rr-ink);
+  border: 1px solid var(--rr-line-strong);
+}
+
+.w-btn-ghost:hover {
+  background: var(--rr-surface-2);
+}
+
+.w-btn-text {
+  background: transparent;
+  height: auto;
+  padding: 8px 10px;
+}
+
+.w-btn-text:hover {
+  color: var(--rr-ink);
+}
+
+/* ── Cards + chips ──────────────────────────────────────────── */
+
+.w-card {
+  background: var(--rr-surface);
+  border: 1px solid var(--rr-line);
+  border-radius: var(--w-radius);
+  padding: 22px;
+}
+
+.w-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.w-chip-neutral {
+  background: var(--rr-surface-2);
+  color: var(--rr-ink-2);
+}
+
+.w-chip-approved {
+  background: var(--rr-success-soft);
+  color: var(--rr-success);
+}
+
+.w-chip-rejected {
+  background: rgba(156, 59, 46, 0.12);
+  color: var(--rr-danger);
+}
+
+/* ── Crest (tenant mark placeholder) ────────────────────────── */
+
+.rr-crest {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--rr-gold);
+  color: var(--rr-brand-strong);
+  font-family: var(--rr-serif);
+  font-weight: 700;
+  flex-shrink: 0;
+}
