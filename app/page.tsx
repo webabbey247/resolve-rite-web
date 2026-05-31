@@ -1,9 +1,30 @@
-import React from "react";
 import { Icons } from "@/components/Icons";
 import { FakeAvatar, Stars } from "@/components/shared";
 import { Faq } from "@/components/Faq";
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
+import { HeroVisual, StoreBadge, Stat, PhoneFan, FeatCard } from "@/components/landing";
+import {
+  heroAvatars,
+  trustedLogos,
+  audiences,
+  howItWorksSteps,
+  brandSwatches,
+  brandTokens,
+  auditLogRows,
+  platformChannels,
+  mobileStats,
+  encryptionSpecs,
+  permissionRoles,
+  permissionMatrix,
+  tenantRegions,
+  complianceSeals,
+  featuredMetrics,
+  supportingQuotes,
+  ratingAvatars,
+  ratingLogos,
+  pricingPlans,
+} from "@/libs/data";
 
 export default function PageLanding() {
   return (
@@ -40,7 +61,7 @@ export default function PageLanding() {
             </div>
             <div className="mt-6 flex items-center gap-4 text-[12.5px] text-muted">
               <div className="flex">
-                {["AC", "KM", "RS", "OB"].map((n, i) => (
+                {heroAvatars.map((n, i) => (
                   <div key={n} style={{ marginLeft: i === 0 ? 0 : -8 }}>
                     <FakeAvatar name={n} size={28} />
                   </div>
@@ -60,14 +81,7 @@ export default function PageLanding() {
         <div className="mx-auto max-w-7xl">
           <div className="w-eyebrow text-center">Operating across 12 countries · 4 sectors</div>
           <div className="mt-5.5 grid grid-cols-3 items-center justify-items-center gap-6 opacity-70 nav:grid-cols-6">
-            {[
-              "Northridge University",
-              "Atlas NGO",
-              "Meridian Group",
-              "Cape Polytechnic",
-              "Civic Council",
-              "Eastlake Univ.",
-            ].map((n) => (
+            {trustedLogos.map((n) => (
               <div key={n} className="flex items-center gap-2">
                 <div className="h-5.5 w-5.5 rounded-[5px] bg-ink-2 opacity-85" />
                 <div className="font-serif text-[13.5px] font-semibold text-ink-2">{n}</div>
@@ -85,28 +99,7 @@ export default function PageLanding() {
             <h2 className="w-h1 mt-3">Built for institutions that take fairness seriously.</h2>
           </div>
           <div className="mt-12 grid grid-cols-1 gap-4.5 sm:grid-cols-2 nav:grid-cols-4">
-            {[
-              {
-                t: "Universities",
-                d: "Student grievances, faculty conduct, registrar disputes.",
-                i: <Icons.Doc size={22} />,
-              },
-              {
-                t: "NGOs",
-                d: "Donor concerns, beneficiary safeguarding, field reports.",
-                i: <Icons.Shield size={22} />,
-              },
-              {
-                t: "HR teams",
-                d: "Workplace complaints, harassment, internal investigations.",
-                i: <Icons.User size={22} />,
-              },
-              {
-                t: "Governance",
-                d: "Citizen petitions, policy violations, oversight cases.",
-                i: <Icons.Scale size={22} />,
-              },
-            ].map((c) => (
+            {audiences.map((c) => (
               <div key={c.t} className="w-card">
                 <div className="flex h-11 w-11 items-center justify-center rounded-[11px] bg-brand-soft text-brand-ink">
                   {c.i}
@@ -134,23 +127,7 @@ export default function PageLanding() {
             </p>
           </div>
           <div className="flex flex-col gap-3.5">
-            {[
-              {
-                n: "01",
-                t: "Intake",
-                d: "Students or staff file via mobile or web. Branching questions route the case to the right team automatically.",
-              },
-              {
-                n: "02",
-                t: "Investigate",
-                d: "Moderators triage, request documents, message anonymously, and update status — every action lands in the audit log.",
-              },
-              {
-                n: "03",
-                t: "Resolve",
-                d: "Panels record outcomes, escalate if needed, and close cases with a written rationale visible to the reporter.",
-              },
-            ].map((s) => (
+            {howItWorksSteps.map((s) => (
               <div
                 key={s.n}
                 className="grid grid-cols-[64px_1fr] items-start gap-6 rounded-card border border-line bg-surface px-6.5 py-5.5"
@@ -212,7 +189,7 @@ export default function PageLanding() {
                 {/* swatches + tokens */}
                 <div className="flex-1">
                   <div className="mb-2.5 flex gap-1.75">
-                    {["#1E3A5F", "#B5895B", "#3F7559", "#9C3B2E"].map((c) => (
+                    {brandSwatches.map((c) => (
                       <div
                         key={c}
                         className="h-7.5 w-7.5 rounded-lg border border-white/18"
@@ -220,12 +197,7 @@ export default function PageLanding() {
                       />
                     ))}
                   </div>
-                  {(
-                    [
-                      ["Primary", "#1E3A5F"],
-                      ["Accent", "#B5895B"],
-                    ] as [string, string][]
-                  ).map(([k, v]) => (
+                  {brandTokens.map(([k, v]) => (
                     <div
                       key={k}
                       className="flex justify-between border-t border-white/8 py-1.25 text-[11px]"
@@ -253,11 +225,7 @@ export default function PageLanding() {
                     <span className="h-1.25 w-1.25 rounded-full bg-[#9FD3B8]" /> Immutable
                   </span>
                 </div>
-                {[
-                  { t: "09:41", who: "A. Chen", what: "updated status", tgt: "NRU-2847", c: "#9FD3B8" },
-                  { t: "09:38", who: "System", what: "auto-assigned", tgt: "NRU-2891", c: "#CDB68F" },
-                  { t: "09:37", who: "M. Okafor", what: "submitted", tgt: "NRU-2891", c: "#9DBBE0" },
-                ].map((r, i) => (
+                {auditLogRows.map((r, i) => (
                   <div
                     key={i}
                     className={
@@ -345,11 +313,7 @@ export default function PageLanding() {
                 </div>
               </div>
               <div className="flex shrink-0 flex-wrap gap-2">
-                {[
-                  { l: "iOS", ic: <Icons.Phone size={13} /> },
-                  { l: "Android", ic: <Icons.Phone size={13} /> },
-                  { l: "Web CRM", ic: <Icons.Globe size={13} /> },
-                ].map((p) => (
+                {platformChannels.map((p) => (
                   <span
                     key={p.l}
                     className="inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-white/8 px-3 py-1.75 text-[12px] font-semibold text-white"
@@ -383,9 +347,9 @@ export default function PageLanding() {
               <StoreBadge store="google" />
             </div>
             <div className="mt-6 flex gap-5.5 text-[13px] text-muted">
-              <Stat n="4.8" sub="App Store" />
-              <Stat n="48 h" sub="median response" />
-              <Stat n="98%" sub="closure rate" />
+              {mobileStats.map((s) => (
+                <Stat key={s.sub} n={s.n} sub={s.sub} />
+              ))}
             </div>
           </div>
           <div className="flex items-center justify-center py-5">
@@ -428,13 +392,7 @@ export default function PageLanding() {
                 Data is encrypted the moment it leaves a device and stays that way at rest.
               </div>
               <div className="mt-4 flex flex-col gap-2">
-                {(
-                  [
-                    ["In transit", "TLS 1.3"],
-                    ["At rest", "AES-256"],
-                    ["Key management", "HSM-backed"],
-                  ] as [string, string][]
-                ).map(([k, v]) => (
+                {encryptionSpecs.map(([k, v]) => (
                   <div
                     key={k}
                     className="flex items-center justify-between rounded-[9px] border border-line bg-bg px-3 py-2.25"
@@ -457,7 +415,7 @@ export default function PageLanding() {
               </div>
               <div className="mt-4 overflow-hidden rounded-[10px] border border-line">
                 <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr] bg-surface-2 px-3 py-2">
-                  {["", "Admin", "Mod", "Student"].map((h) => (
+                  {permissionRoles.map((h) => (
                     <div
                       key={h}
                       className={
@@ -469,14 +427,7 @@ export default function PageLanding() {
                     </div>
                   ))}
                 </div>
-                {(
-                  [
-                    ["View case", [1, 1, 2]],
-                    ["Assign", [1, 1, 0]],
-                    ["Close", [1, 1, 0]],
-                    ["Export log", [1, 0, 0]],
-                  ] as [string, number[]][]
-                ).map(([action, perms]) => (
+                {permissionMatrix.map(([action, perms]) => (
                   <div
                     key={action}
                     className="grid grid-cols-[1.4fr_1fr_1fr_1fr] items-center border-t border-line px-3 py-2.25"
@@ -508,11 +459,7 @@ export default function PageLanding() {
                 Each tenant&apos;s data is partitioned and pinned to the region you choose.
               </div>
               <div className="mt-4 flex flex-col gap-2">
-                {[
-                  { n: "Northridge", r: "US-West" },
-                  { n: "Atlas NGO", r: "EU-Central" },
-                  { n: "Meridian", r: "APAC" },
-                ].map((t) => (
+                {tenantRegions.map((t) => (
                   <div
                     key={t.n}
                     className="flex items-center gap-2.5 rounded-[9px] border border-line bg-bg px-3 py-2.25"
@@ -534,12 +481,7 @@ export default function PageLanding() {
               Independently audited &amp; certified
             </div>
             <div className="flex flex-wrap gap-7">
-              {[
-                { t: "SOC 2 Type II", s: "Renewed annually" },
-                { t: "FERPA-aligned", s: "US education" },
-                { t: "GDPR-ready", s: "EU residency" },
-                { t: "ISO 27001", s: "Certified 2024" },
-              ].map((b) => (
+              {complianceSeals.map((b) => (
                 <div key={b.t} className="flex items-center gap-2.75">
                   <div className="flex h-9.5 w-9.5 shrink-0 items-center justify-center rounded-full border border-line-strong bg-surface text-brand-ink">
                     <Icons.Shield size={18} />
@@ -589,13 +531,7 @@ export default function PageLanding() {
                   </div>
                 </div>
                 <div className="mt-7 flex flex-wrap gap-10 border-t border-white/12 pt-6">
-                  {(
-                    [
-                      ["88%", "backlog cleared"],
-                      ["2×", "faster panels"],
-                      ["1 sem", "to roll out"],
-                    ] as [string, string][]
-                  ).map(([n, l]) => (
+                  {featuredMetrics.map(([n, l]) => (
                     <div key={l}>
                       <div className="font-serif text-[28px] font-semibold leading-none tracking-[-0.01em] text-gold">
                         {n}
@@ -609,20 +545,7 @@ export default function PageLanding() {
 
             {/* Stacked supporting quotes */}
             <div className="flex flex-col gap-4">
-              {[
-                {
-                  q: "Our field officers finally have one safe channel for safeguarding reports. Anonymous intake changed everything.",
-                  n: "Imani Kamau",
-                  r: "Programs Director · Atlas NGO",
-                  sector: "NGO",
-                },
-                {
-                  q: "We replaced three spreadsheets and a shared inbox. HR investigations that took weeks now take days.",
-                  n: "Jordan Cole",
-                  r: "Head of People · Meridian Group",
-                  sector: "HR",
-                },
-              ].map((t) => (
+              {supportingQuotes.map((t) => (
                 <div key={t.n} className="w-card flex flex-1 flex-col">
                   <div className="flex items-start justify-between">
                     <Stars />
@@ -647,7 +570,7 @@ export default function PageLanding() {
           <div className="mt-4 flex flex-wrap items-center justify-between gap-6 rounded-card border border-line bg-bg px-7 py-5">
             <div className="flex items-center gap-3.5">
               <div className="flex">
-                {["AC", "IK", "JC", "RS", "DW"].map((n, i) => (
+                {ratingAvatars.map((n, i) => (
                   <div key={n} style={{ marginLeft: i === 0 ? 0 : -10 }}>
                     <FakeAvatar name={n} size={36} />
                   </div>
@@ -664,7 +587,7 @@ export default function PageLanding() {
               </div>
             </div>
             <div className="flex flex-wrap gap-7 opacity-75">
-              {["Northridge", "Atlas NGO", "Meridian", "Eastlake", "Civic Council"].map((n) => (
+              {ratingLogos.map((n) => (
                 <div key={n} className="flex items-center gap-1.75">
                   <div className="h-4.5 w-4.5 rounded bg-ink-2" />
                   <span className="font-serif text-[13px] font-semibold text-ink-2">{n}</span>
@@ -683,55 +606,7 @@ export default function PageLanding() {
             <h2 className="w-h1 mt-3">Pay for the seats that need it. Not per&nbsp;case.</h2>
           </div>
           <div className="mx-auto mt-12 grid max-w-275 grid-cols-1 gap-4.5 sm:grid-cols-2 nav:grid-cols-3">
-            {[
-              {
-                name: "Foundation",
-                price: "$1,200",
-                per: "/ month",
-                sub: "For small institutions starting out.",
-                features: [
-                  "Up to 5,000 students",
-                  "5 moderator seats",
-                  "Mobile + standalone CRM",
-                  "Standard auth gateways",
-                  "Email support",
-                ],
-                cta: "Start trial",
-                highlight: false,
-              },
-              {
-                name: "Institution",
-                price: "$3,400",
-                per: "/ month",
-                sub: "For mid-size universities & NGOs.",
-                features: [
-                  "Up to 25,000 students",
-                  "20 moderator seats",
-                  "Custom branding (mobile + CRM)",
-                  "Custom redirect gateways",
-                  "Audit log retention 5 yr",
-                  "Priority support",
-                ],
-                cta: "Start trial",
-                highlight: true,
-              },
-              {
-                name: "Enterprise",
-                price: "Custom",
-                per: "",
-                sub: "Multi-tenant, governance, NGOs at scale.",
-                features: [
-                  "Unlimited students",
-                  "Unlimited seats",
-                  "Dedicated tenant infra",
-                  "SSO + custom OIDC",
-                  "On-prem audit export",
-                  "Named CSM & SLA",
-                ],
-                cta: "Contact sales",
-                highlight: false,
-              },
-            ].map((p) => (
+            {pricingPlans.map((p) => (
               <div
                 key={p.name}
                 className={
@@ -795,188 +670,6 @@ export default function PageLanding() {
       </section>
 
       <Footer />
-    </div>
-  );
-}
-
-// ── Hero visual: real product screenshots (browser window + floating phone)
-function HeroVisual() {
-  const crm = "/assets/hero-crm.png";
-  const mobile = "/assets/hero-mobile.png";
-  return (
-    <div className="relative pb-7">
-      {/* Browser window framing the real admin dashboard screenshot */}
-      <div className="overflow-hidden rounded-[18px] bg-surface shadow-[0_50px_100px_-20px_rgba(15,27,45,0.28),0_0_0_1px_var(--rr-line)]">
-        <div className="flex items-center gap-2 border-b border-line bg-surface-2 px-3.5 py-2.75">
-          <span className="h-2.75 w-2.75 rounded-full bg-[#E55C5C]" />
-          <span className="h-2.75 w-2.75 rounded-full bg-[#E8B842]" />
-          <span className="h-2.75 w-2.75 rounded-full bg-[#42B883]" />
-          <div className="flex flex-1 justify-center">
-            <div className="inline-flex items-center gap-1.5 rounded-[7px] border border-line bg-surface px-3 py-0.75 font-mono text-[11px] text-muted">
-              <Icons.Lock size={11} style={{ color: "var(--rr-success)" }} />
-              northridge.resolverite.app/settings/branding
-            </div>
-          </div>
-        </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={crm}
-          alt="ResolveRite university admin dashboard — branding & theme"
-          className="block w-full"
-        />
-      </div>
-
-      {/* Floating phone framing the real student app screenshot */}
-      <div className="absolute -bottom-2 -left-6.5">
-        <div className="h-90 w-43 rounded-4xl bg-ink p-2.25 shadow-[0_30px_60px_rgba(15,27,45,0.4),0_0_0_1px_rgba(0,0,0,0.06)]">
-          <div className="h-full w-full overflow-hidden rounded-3xl bg-white">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={mobile}
-              alt="ResolveRite student mobile app — home"
-              className="block h-full w-full object-cover object-top"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function StoreBadge({ store }: { store: "apple" | "google" }) {
-  return (
-    <div className="inline-flex min-w-45 cursor-pointer items-center gap-3 rounded-xl bg-ink px-4.5 py-2.5 text-white">
-      {store === "apple" ? (
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
-          <path d="M16.5 12.5c0-2.5 2-3.7 2.1-3.8-1.1-1.6-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.8 3.4-.8s2 .8 3.4.8c1.4 0 2.3-1.2 3.2-2.5.6-.9 1.1-1.8 1.4-2.7-3-1.1-3.3-3.3-3.3-3.3zM14.2 5c.7-.9 1.2-2.1 1.1-3.4-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.2.1 2.3-.6 3-1.4z" />
-        </svg>
-      ) : (
-        <svg width="22" height="24" viewBox="0 0 24 24" fill="#fff">
-          <path d="M3 2l12 10L3 22V2zM15 12l4-3 3 1.5L17.5 12 22 13.5 19 15l-4-3z" />
-        </svg>
-      )}
-      <div>
-        <div className="text-[10.5px] opacity-80">
-          {store === "apple" ? "Download on the" : "Get it on"}
-        </div>
-        <div className="mt-px font-serif text-[17px] font-semibold">
-          {store === "apple" ? "App Store" : "Google Play"}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Stat({ n, sub }: { n: string; sub: string }) {
-  return (
-    <div>
-      <div className="font-serif text-[22px] font-semibold leading-none tracking-[-0.005em] text-ink">
-        {n}
-      </div>
-      <div className="w-meta mt-1 text-[11.5px]">{sub}</div>
-    </div>
-  );
-}
-
-function Phone({
-  img,
-  alt,
-  w = 248,
-  style,
-}: {
-  img: string;
-  alt: string;
-  w?: number;
-  style?: React.CSSProperties;
-}) {
-  // Frames a full-screen iOS export (1206×2622) in a thin device bezel.
-  // Bezel/radius are derived from `w`, so this stays inline-styled.
-  const ratio = 2622 / 1206;
-  const bezel = Math.round(w * 0.035);
-  const innerW = w;
-  const innerH = Math.round(w * ratio);
-  const radius = Math.round(w * 0.155);
-  return (
-    <div
-      className="relative bg-ink shadow-[0_40px_80px_-20px_rgba(15,27,45,0.45),0_0_0_1px_rgba(0,0,0,0.06)]"
-      style={{
-        width: innerW + bezel * 2,
-        height: innerH + bezel * 2,
-        borderRadius: radius + bezel,
-        padding: bezel,
-        ...style,
-      }}
-    >
-      <div
-        className="overflow-hidden bg-bg"
-        style={{ width: innerW, height: innerH, borderRadius: radius }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={img} alt={alt} className="block h-full w-full object-cover object-top" />
-      </div>
-    </div>
-  );
-}
-
-function PhoneFan() {
-  const cat = "/assets/flow-category.png";
-  const q = "/assets/flow-question.png";
-  const sub = "/assets/flow-subquestions.png";
-  return (
-    <div className="relative flex h-150 w-140 max-w-full items-center justify-center">
-      {/* soft glow behind */}
-      <div className="absolute h-110 w-110 rounded-full bg-[radial-gradient(circle,var(--rr-brand-soft)_0%,transparent_70%)] blur-sm" />
-      {/* left phone — pick a category, rotated back */}
-      <div className="absolute left-1.5 top-19.5 z-1 -rotate-9">
-        <Phone w={196} img={cat} alt="Student app — choose a complaint category" />
-      </div>
-      {/* right phone — sub-questions, rotated forward */}
-      <div className="absolute right-1.5 top-19.5 z-1 rotate-9">
-        <Phone w={196} img={sub} alt="Student app — branching follow-up questions" />
-      </div>
-      {/* center phone — pick a question, forward */}
-      <div className="relative z-3 -translate-y-2.5">
-        <Phone w={238} img={q} alt="Student app — pick a question" />
-      </div>
-    </div>
-  );
-}
-
-function FeatCard({
-  className = "",
-  icon,
-  eyebrow,
-  title,
-  desc,
-  children,
-}: {
-  className?: string;
-  icon: React.ReactNode;
-  eyebrow?: string;
-  title: string;
-  desc: string;
-  children?: React.ReactNode;
-}) {
-  return (
-    <div
-      className={
-        "flex flex-col rounded-card border border-white/9 bg-white/5 p-5.5 " +
-        className
-      }
-    >
-      <div className="flex items-center gap-2.5">
-        <div className="flex h-9.5 w-9.5 shrink-0 items-center justify-center rounded-[10px] bg-white/8 text-gold">
-          {icon}
-        </div>
-        {eyebrow && (
-          <span className="text-[10.5px] font-semibold uppercase tracking-widest text-gold">
-            {eyebrow}
-          </span>
-        )}
-      </div>
-      <div className="w-h3 mt-4 text-[18px] text-white">{title}</div>
-      <div className="mt-1.5 text-[13.5px] leading-normal text-white/70">{desc}</div>
-      {children}
     </div>
   );
 }
