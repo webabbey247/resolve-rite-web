@@ -45,7 +45,7 @@ export function Faq() {
                 {f.q}
               </div>
               {isOpen && (
-                <div className="w-body mt-2.5 max-w-140">{f.a}</div>
+                <div className="text-[15px] leading-[1.6] text-ink-2 m-0 max-w-140">{f.a}</div>
               )}
             </div>
             <button

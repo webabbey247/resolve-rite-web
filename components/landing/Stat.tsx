@@ -5,7 +5,7 @@ export function Stat({ n, sub }: { n: string; sub: string }) {
       <div className="font-serif text-[22px] font-semibold leading-none tracking-[-0.005em] text-ink">
         {n}
       </div>
-      <div className="w-meta mt-1 text-[11.5px]">{sub}</div>
+      <div className="text-[12.5px] leading-[1.45] text-muted mt-1">{sub}</div>
     </div>
   );
 }

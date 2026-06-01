@@ -17,7 +17,7 @@ const Footer = () => {
             Smarter dispute resolution, end to end — for institutions that take fairness seriously.
           </div>
           <div className="mt-5 flex gap-2">
-            <button className="w-btn w-btn-sm border border-white/20 bg-white/10 text-white">
+            <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-9 px-3.5 rounded-[10px] text-[13px] text-white">
               <Icons.Mail size={14} /> Contact sales
             </button>
           </div>

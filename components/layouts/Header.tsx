@@ -51,10 +51,10 @@ export function Header() {
         <div className="flex-1" />
         <ThemeToggle />
         {/* Desktop actions — wrapped so the `hidden` utility isn't overridden
-            by the `.w-btn` component class's own `display`. */}
+            by the button's own `inline-flex` display. */}
         <div className="hidden items-center gap-3 nav:flex">
-          <button className="w-btn w-btn-text font-semibold text-ink-2">Sign in</button>
-          <button className="h-9.5 w-btn w-btn-primary w-btn-sm">
+          <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-auto px-2.5 py-2 rounded-[10px] text-[13.5px] bg-transparent hover:text-ink">Sign in</button>
+          <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-9 px-3.5 rounded-[10px] text-[13px] bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]">
             Get started
             <Icons.ChevronRight size={14} />
           </button>
@@ -88,8 +88,8 @@ export function Header() {
             </button>
           ))}
           <div className="mt-3 flex flex-col gap-2 border-t border-line pt-4">
-            <button className="w-btn w-btn-ghost w-full justify-center">Sign in</button>
-            <button className="w-btn w-btn-primary w-full justify-center">
+            <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] bg-surface text-ink border border-line-strong hover:bg-surface-2 w-full">Sign in</button>
+            <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388] w-full">
               Get started
               <Icons.ChevronRight size={14} />
             </button>

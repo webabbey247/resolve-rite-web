@@ -29,7 +29,7 @@ export function FeatCard({
           </span>
         )}
       </div>
-      <div className="w-h3 mt-4 text-[18px] text-white">{title}</div>
+      <div className="font-serif text-[16px] font-semibold tracking-[-0.006em] text-ink leading-tight mt-4">{title}</div>
       <div className="mt-1.5 text-[13.5px] leading-normal text-white/70">{desc}</div>
       {children}
     </div>

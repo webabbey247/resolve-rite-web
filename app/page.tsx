@@ -40,22 +40,22 @@ export default function PageLanding() {
               New · Anonymous reporting for HR teams
               <Icons.ChevronRight size={14} style={{ color: "var(--rr-muted)" }} />
             </div>
-            <h1 className="w-display mt-5.5">
+            <h1 className="font-serif text-[clamp(40px,4.4vw,58px)] font-semibold leading-[1.04] tracking-[-0.022em] text-ink m-0">
               Smarter dispute
               <br />
               resolution,{" "}
               <span className="italic text-brand-ink">end&nbsp;to&nbsp;end.</span>
             </h1>
-            <p className="w-lead mt-5.5 max-w-130">
+            <p className="text-[18px] leading-[1.55] text-ink-2 m-0 max-w-130">
               ResolveRite replaces the spreadsheets, email chains and PDFs your institution relies
               on with a structured, transparent, auditable system — from intake to outcome.
             </p>
             <div className="mt-7.5 flex flex-wrap gap-3">
-              <button className="w-btn w-btn-primary w-btn-lg">
+              <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-12.5 px-6 rounded-xl text-[15px] bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]">
                 Start onboarding
                 <Icons.ChevronRight size={16} />
               </button>
-              <button className="w-btn w-btn-ghost w-btn-lg">
+              <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-12.5 px-6 rounded-xl text-[15px] bg-surface text-ink border border-line-strong hover:bg-surface-2">
                 <Icons.Chat size={16} /> Book a demo
               </button>
             </div>
@@ -79,8 +79,8 @@ export default function PageLanding() {
       {/* Trusted-by logos */}
       <section className="px-6 pb-14 pt-6 nav:px-12">
         <div className="mx-auto max-w-7xl">
-          <div className="w-eyebrow text-center">Operating across 12 countries · 4 sectors</div>
-          <div className="mt-5.5 grid grid-cols-3 items-center justify-items-center gap-6 opacity-70 nav:grid-cols-6">
+          <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold text-center">Operating across 12 countries · 4 sectors</div>
+          <div className="mt-5.5 grid grid-cols-3 items-center justify-items-center gap-6 opacity-70 md:grid-cols-6">
             {trustedLogos.map((n) => (
               <div key={n} className="flex items-center gap-2">
                 <div className="h-5.5 w-5.5 rounded-[5px] bg-ink-2 opacity-85" />
@@ -95,17 +95,17 @@ export default function PageLanding() {
       <section className="bg-surface px-6 py-18 nav:px-12">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-180 text-center">
-            <div className="w-eyebrow">Who it&apos;s for</div>
-            <h2 className="w-h1 mt-3">Built for institutions that take fairness seriously.</h2>
+            <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">Who it&apos;s for</div>
+            <h2 className="font-serif text-[clamp(28px,3vw,38px)] font-semibold leading-[1.12] tracking-[-0.018em] text-ink m-0">Built for institutions that take fairness seriously.</h2>
           </div>
-          <div className="mt-12 grid grid-cols-1 gap-4.5 sm:grid-cols-2 nav:grid-cols-4">
+          <div className="mt-12 grid grid-cols-1 gap-4.5 md:grid-cols-2 lg:grid-cols-4">
             {audiences.map((c) => (
-              <div key={c.t} className="w-card">
+              <div key={c.t} className="rounded-card border border-line bg-surface p-5.5">
                 <div className="flex h-11 w-11 items-center justify-center rounded-[11px] bg-brand-soft text-brand-ink">
                   {c.i}
                 </div>
-                <div className="w-h3 mt-4.5 text-[19px]">{c.t}</div>
-                <div className="w-body mt-1.5 text-[14px]">{c.d}</div>
+                <div className="font-serif text-[16px] font-semibold tracking-[-0.006em] text-ink leading-tight mt-4.5">{c.t}</div>
+                <div className="text-[15px] leading-[1.6] text-ink-2 m-0">{c.d}</div>
               </div>
             ))}
           </div>
@@ -116,12 +116,12 @@ export default function PageLanding() {
       <section className="px-6 py-22 nav:px-12">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 nav:grid-cols-[1fr_1.4fr] nav:gap-16">
           <div>
-            <div className="w-eyebrow">How it works</div>
-            <h2 className="w-h1 mt-3">
+            <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">How it works</div>
+            <h2 className="font-serif text-[clamp(28px,3vw,38px)] font-semibold leading-[1.12] tracking-[-0.018em] text-ink m-0">
               From <span className="italic text-brand-ink">concern</span> to closure in three
               movements.
             </h2>
-            <p className="w-body mt-3.5 max-w-90">
+            <p className="text-[15px] leading-[1.6] text-ink-2 m-0 max-w-90">
               No more lost emails or PDF attachments. Every case is tied to a ticket ID and a
               structured workflow your panels can actually audit.
             </p>
@@ -136,8 +136,8 @@ export default function PageLanding() {
                   {s.n}
                 </div>
                 <div>
-                  <div className="w-h3">{s.t}</div>
-                  <div className="w-body mt-1.5">{s.d}</div>
+                  <div className="font-serif text-[16px] font-semibold tracking-[-0.006em] text-ink leading-tight">{s.t}</div>
+                  <div className="text-[15px] leading-[1.6] text-ink-2 m-0">{s.d}</div>
                 </div>
               </div>
             ))}
@@ -153,8 +153,8 @@ export default function PageLanding() {
         <div className="relative mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-8">
             <div className="max-w-140">
-              <div className="w-eyebrow">The platform</div>
-              <h2 className="w-h1 mt-3 text-white">
+              <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">The platform</div>
+              <h2 className="font-serif text-[clamp(28px,3vw,38px)] font-semibold leading-[1.12] tracking-[-0.018em] text-ink m-0">
                 Everything you need.
                 <br />
                 <span className="italic text-gold">Nothing you don&apos;t.</span>
@@ -166,10 +166,10 @@ export default function PageLanding() {
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-2 gap-4 auto-rows-[minmax(0,auto)] nav:grid-cols-6">
+          <div className="mt-12 grid grid-cols-2 gap-4 auto-rows-[minmax(0,auto)] md:grid-cols-6">
             {/* Custom branding — large, with themed-app preview */}
             <FeatCard
-              className="col-span-2 nav:col-span-3 nav:row-span-2 min-h-75"
+              className="col-span-2 md:col-span-3 md:row-span-2 min-h-75"
               icon={<Icons.Edit size={18} />}
               eyebrow="Make it theirs"
               title="Custom branding, end to end"
@@ -179,7 +179,7 @@ export default function PageLanding() {
                 {/* mini themed phone */}
                 <div className="w-29 shrink-0 rounded-[18px] bg-[#0c1626] p-1.75 shadow-[0_16px_30px_rgba(0,0,0,0.3)]">
                   <div className="flex h-39 flex-col items-center gap-2 overflow-hidden rounded-[13px] bg-[linear-gradient(170deg,#1E3A5F,#16294A)] px-3 pb-3 pt-4.5">
-                    <div className="rr-crest h-7.5 w-7.5 text-[14px]">N</div>
+                    <div className="flex items-center justify-center rounded-lg bg-gold text-brand-strong font-serif font-bold shrink-0 h-7.5 w-7.5 text-[14px]">N</div>
                     <div className="font-serif text-[12px] font-semibold text-white">Northridge</div>
                     <div className="mt-auto flex h-6.5 w-full items-center justify-center rounded-[7px] bg-white text-[9px] font-bold text-[#16294A]">
                       Sign in
@@ -212,7 +212,7 @@ export default function PageLanding() {
 
             {/* Audit log — large, with live ledger */}
             <FeatCard
-              className="col-span-2 nav:col-span-3 nav:row-span-2 min-h-75"
+              className="col-span-2 md:col-span-3 md:row-span-2 min-h-75"
               icon={<Icons.Shield size={18} />}
               eyebrow="Defensible by design"
               title="Immutable audit log"
@@ -301,12 +301,12 @@ export default function PageLanding() {
             </FeatCard>
 
             {/* Mobile + Web — full width */}
-            <div className="col-span-2 flex flex-wrap items-center gap-6 rounded-card border border-white/9 bg-white/5 px-6 py-5 nav:col-span-6">
+            <div className="col-span-2 flex flex-wrap items-center gap-6 rounded-card border border-white/9 bg-white/5 px-6 py-5 md:col-span-6">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[11px] bg-white/8 text-gold">
                 <Icons.Phone size={20} />
               </div>
               <div className="min-w-55 flex-1">
-                <div className="w-h3 text-[18px] text-white">One platform, two front doors</div>
+                <div className="font-serif text-[16px] font-semibold tracking-[-0.006em] text-ink leading-tight">One platform, two front doors</div>
                 <div className="mt-0.75 text-[14px] leading-normal text-white/70">
                   A native-feeling iOS &amp; Android app for students, and a full standalone CRM for
                   your moderators and review panels.
@@ -332,13 +332,13 @@ export default function PageLanding() {
       <section className="px-6 py-22 nav:px-12">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 nav:grid-cols-2 nav:gap-16">
           <div>
-            <div className="w-eyebrow">Student mobile</div>
-            <h2 className="w-h1 mt-3">
+            <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">Student mobile</div>
+            <h2 className="font-serif text-[clamp(28px,3vw,38px)] font-semibold leading-[1.12] tracking-[-0.018em] text-ink m-0">
               A pocket-sized place
               <br />
               to be heard.
             </h2>
-            <p className="w-body mt-3.5 max-w-115">
+            <p className="text-[15px] leading-[1.6] text-ink-2 m-0 max-w-115">
               File complaints, follow up on tickets, and reach moderators directly — themed with
               your university&apos;s identity end-to-end.
             </p>
@@ -363,32 +363,32 @@ export default function PageLanding() {
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-8">
             <div className="max-w-150">
-              <div className="w-eyebrow">Security &amp; compliance</div>
-              <h2 className="w-h1 mt-3">
+              <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">Security &amp; compliance</div>
+              <h2 className="font-serif text-[clamp(28px,3vw,38px)] font-semibold leading-[1.12] tracking-[-0.018em] text-ink m-0">
                 Built like the
                 <br />
                 institutions you serve.
               </h2>
-              <p className="w-body mt-3.5 max-w-125">
+              <p className="text-[15px] leading-[1.6] text-ink-2 m-0 max-w-125">
                 Encryption in transit and at rest, granular role-based access, and strict tenant
                 isolation — vetted by the kind of IT and legal teams you answer to.
               </p>
             </div>
-            <button className="w-btn w-btn-ghost">
+            <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] bg-surface text-ink border border-line-strong hover:bg-surface-2">
               <Icons.Shield size={15} style={{ color: "var(--rr-brand-ink)" }} /> Read the security
               overview
             </button>
           </div>
 
           {/* Three pillars */}
-          <div className="mt-11 grid grid-cols-1 gap-4 nav:grid-cols-3">
+          <div className="mt-11 grid grid-cols-1 gap-4 md:grid-cols-3">
             {/* Encryption */}
-            <div className="w-card flex flex-col">
+            <div className="rounded-card border border-line bg-surface p-5.5 flex flex-col">
               <div className="flex h-11 w-11 items-center justify-center rounded-[11px] bg-brand-soft text-brand-ink">
                 <Icons.Lock size={20} />
               </div>
-              <div className="w-h3 mt-4 text-[18px]">Encryption everywhere</div>
-              <div className="w-body mt-1.5 text-[14px]">
+              <div className="font-serif text-[16px] font-semibold tracking-[-0.006em] text-ink leading-tight mt-4">Encryption everywhere</div>
+              <div className="text-[15px] leading-[1.6] text-ink-2 m-0">
                 Data is encrypted the moment it leaves a device and stays that way at rest.
               </div>
               <div className="mt-4 flex flex-col gap-2">
@@ -405,12 +405,12 @@ export default function PageLanding() {
             </div>
 
             {/* Role-based access — permission matrix */}
-            <div className="w-card flex flex-col">
+            <div className="rounded-card border border-line bg-surface p-5.5 flex flex-col">
               <div className="flex h-11 w-11 items-center justify-center rounded-[11px] bg-gold-soft text-gold">
                 <Icons.User size={20} />
               </div>
-              <div className="w-h3 mt-4 text-[18px]">Role-based access</div>
-              <div className="w-body mt-1.5 text-[14px]">
+              <div className="font-serif text-[16px] font-semibold tracking-[-0.006em] text-ink leading-tight mt-4">Role-based access</div>
+              <div className="text-[15px] leading-[1.6] text-ink-2 m-0">
                 Every person sees exactly what their role permits — nothing more.
               </div>
               <div className="mt-4 overflow-hidden rounded-[10px] border border-line">
@@ -450,12 +450,12 @@ export default function PageLanding() {
             </div>
 
             {/* Tenant isolation & residency */}
-            <div className="w-card flex flex-col">
+            <div className="rounded-card border border-line bg-surface p-5.5 flex flex-col">
               <div className="flex h-11 w-11 items-center justify-center rounded-[11px] bg-success-soft text-success">
                 <Icons.Globe size={20} />
               </div>
-              <div className="w-h3 mt-4 text-[18px]">Isolation &amp; residency</div>
-              <div className="w-body mt-1.5 text-[14px]">
+              <div className="font-serif text-[16px] font-semibold tracking-[-0.006em] text-ink leading-tight mt-4">Isolation &amp; residency</div>
+              <div className="text-[15px] leading-[1.6] text-ink-2 m-0">
                 Each tenant&apos;s data is partitioned and pinned to the region you choose.
               </div>
               <div className="mt-4 flex flex-col gap-2">
@@ -488,7 +488,7 @@ export default function PageLanding() {
                   </div>
                   <div>
                     <div className="text-[13px] font-semibold text-ink">{b.t}</div>
-                    <div className="w-meta text-[11px]">{b.s}</div>
+                    <div className="text-[12.5px] leading-[1.45] text-muted">{b.s}</div>
                   </div>
                 </div>
               ))}
@@ -501,8 +501,8 @@ export default function PageLanding() {
       <section className="bg-surface px-6 py-22 nav:px-12">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-160 text-center">
-            <div className="w-eyebrow">Loved by the people who run it</div>
-            <h2 className="w-h1 mt-3">
+            <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">Loved by the people who run it</div>
+            <h2 className="font-serif text-[clamp(28px,3vw,38px)] font-semibold leading-[1.12] tracking-[-0.018em] text-ink m-0">
               Trusted across every
               <br />
               kind of institution.
@@ -546,10 +546,10 @@ export default function PageLanding() {
             {/* Stacked supporting quotes */}
             <div className="flex flex-col gap-4">
               {supportingQuotes.map((t) => (
-                <div key={t.n} className="w-card flex flex-1 flex-col">
+                <div key={t.n} className="rounded-card border border-line bg-surface p-5.5 flex flex-1 flex-col">
                   <div className="flex items-start justify-between">
                     <Stars />
-                    <span className="w-chip w-chip-neutral text-[10.5px]">{t.sector}</span>
+                    <span className="inline-flex items-center gap-1.25 rounded-full px-2.25 py-0.75 text-[11.5px] font-semibold leading-none bg-surface-2 text-ink-2">{t.sector}</span>
                   </div>
                   <div className="mt-3 flex-1 font-serif text-[16.5px] font-medium leading-[1.4] text-ink">
                     {t.q}
@@ -558,7 +558,7 @@ export default function PageLanding() {
                     <FakeAvatar name={t.n} size={34} />
                     <div>
                       <div className="text-[13px] font-semibold text-ink">{t.n}</div>
-                      <div className="w-meta text-[11.5px]">{t.r}</div>
+                      <div className="text-[12.5px] leading-[1.45] text-muted">{t.r}</div>
                     </div>
                   </div>
                 </div>
@@ -581,7 +581,7 @@ export default function PageLanding() {
                   <Stars />
                   <span className="text-[14px] font-bold text-ink">4.8 / 5</span>
                 </div>
-                <div className="w-meta mt-0.5 text-[12px]">
+                <div className="text-[12.5px] leading-[1.45] text-muted mt-0.5">
                   from 184 institutions across 12 countries
                 </div>
               </div>
@@ -602,15 +602,15 @@ export default function PageLanding() {
       <section className="px-6 pb-22 pt-18 nav:px-12">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-160 text-center">
-            <div className="w-eyebrow">Plans</div>
-            <h2 className="w-h1 mt-3">Pay for the seats that need it. Not per&nbsp;case.</h2>
+            <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">Plans</div>
+            <h2 className="font-serif text-[clamp(28px,3vw,38px)] font-semibold leading-[1.12] tracking-[-0.018em] text-ink m-0">Pay for the seats that need it. Not per&nbsp;case.</h2>
           </div>
-          <div className="mx-auto mt-12 grid max-w-275 grid-cols-1 gap-4.5 sm:grid-cols-2 nav:grid-cols-3">
+          <div className="mx-auto mt-12 grid max-w-275 grid-cols-1 gap-4.5 md:grid-cols-2 lg:grid-cols-3">
             {pricingPlans.map((p) => (
               <div
                 key={p.name}
                 className={
-                  "w-card relative p-7 " +
+                  "rounded-card border border-line bg-surface p-5.5 relative " +
                   (p.highlight
                     ? "border-[1.5px] border-brand-ink shadow-[0_22px_50px_rgba(30,58,95,0.12)]"
                     : "")
@@ -621,16 +621,16 @@ export default function PageLanding() {
                     Most popular
                   </div>
                 )}
-                <div className="w-h3">{p.name}</div>
-                <div className="w-meta mt-1">{p.sub}</div>
+                <div className="font-serif text-[16px] font-semibold tracking-[-0.006em] text-ink leading-tight">{p.name}</div>
+                <div className="text-[12.5px] leading-[1.45] text-muted mt-1">{p.sub}</div>
                 <div className="mt-4.5 flex items-baseline gap-1.5">
                   <div className="font-serif text-[38px] font-semibold leading-none tracking-[-0.01em] text-ink">
                     {p.price}
                   </div>
-                  <div className="w-meta text-[13px]">{p.per}</div>
+                  <div className="text-[12.5px] leading-[1.45] text-muted">{p.per}</div>
                 </div>
                 <button
-                  className={`w-btn mt-5 w-full ${p.highlight ? "w-btn-primary" : "w-btn-ghost"}`}
+                  className={`inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] mt-5 w-full ${p.highlight ? "bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]" : "bg-surface text-ink border border-line-strong hover:bg-surface-2"}`}
                 >
                   {p.cta}
                   <Icons.ChevronRight size={14} />
@@ -656,12 +656,12 @@ export default function PageLanding() {
       <section className="bg-surface px-6 py-18 nav:px-12">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 nav:grid-cols-[1fr_1.4fr] nav:gap-16">
           <div>
-            <div className="w-eyebrow">FAQ</div>
-            <h2 className="w-h1 mt-3">Frequently asked.</h2>
-            <p className="w-body mt-3.5 max-w-80">
+            <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">FAQ</div>
+            <h2 className="font-serif text-[clamp(28px,3vw,38px)] font-semibold leading-[1.12] tracking-[-0.018em] text-ink m-0">Frequently asked.</h2>
+            <p className="text-[15px] leading-[1.6] text-ink-2 m-0 max-w-80">
               Need something specific? Reach our team — we onboard new institutions every week.
             </p>
-            <button className="w-btn w-btn-ghost mt-4.5">
+            <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] bg-surface text-ink border border-line-strong hover:bg-surface-2 mt-4.5">
               <Icons.Mail size={14} /> Talk to us
             </button>
           </div>
