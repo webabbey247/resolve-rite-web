@@ -23,10 +23,11 @@ import {
   supportingQuotes,
   ratingAvatars,
   ratingLogos,
-  pricingPlans,
 } from "@/libs/data";
+import { SIGNUP_URL, getPricingPlans } from "@/libs/plans";
 
-export default function PageLanding() {
+export default async function PageLanding() {
+  const pricingPlans = await getPricingPlans();
   return (
     <div className="relative min-h-full w-full overflow-hidden bg-bg">
       <Header />
@@ -605,10 +606,24 @@ export default function PageLanding() {
             <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">Plans</div>
             <h2 className="font-serif text-[clamp(28px,3vw,38px)] font-semibold leading-[1.12] tracking-[-0.018em] text-ink m-0">Pay for the seats that need it. Not per&nbsp;case.</h2>
           </div>
+          {pricingPlans === null || pricingPlans.length === 0 ? (
+            <div className="mx-auto mt-12 max-w-160 rounded-card border border-line bg-surface p-5.5 text-center">
+              <p className="m-0 text-[15px] leading-[1.6] text-ink-2">
+                Pricing couldn’t be loaded just now. You’ll see every plan and its price when you sign up.
+              </p>
+              <a
+                href={SIGNUP_URL}
+                className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] mt-4 bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]"
+              >
+                See plans
+                <Icons.ChevronRight size={14} />
+              </a>
+            </div>
+          ) : (
           <div className="mx-auto mt-12 grid max-w-275 grid-cols-1 gap-4.5 md:grid-cols-2 lg:grid-cols-3">
             {pricingPlans.map((p) => (
               <div
-                key={p.name}
+                key={p.key}
                 className={
                   "rounded-card border border-line bg-surface p-5.5 relative " +
                   (p.highlight
@@ -629,12 +644,14 @@ export default function PageLanding() {
                   </div>
                   <div className="text-[12.5px] leading-[1.45] text-muted">{p.per}</div>
                 </div>
-                <button
+                {p.annualNote && <div className="mt-1.5 text-[12.5px] leading-[1.45] text-muted">{p.annualNote}</div>}
+                <a
+                  href={p.href}
                   className={`inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] mt-5 w-full ${p.highlight ? "bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]" : "bg-surface text-ink border border-line-strong hover:bg-surface-2"}`}
                 >
                   {p.cta}
                   <Icons.ChevronRight size={14} />
-                </button>
+                </a>
                 <div className="mt-5.5 flex flex-col gap-2.5">
                   {p.features.map((f) => (
                     <div key={f} className="flex items-start gap-2.5">
@@ -649,6 +666,7 @@ export default function PageLanding() {
               </div>
             ))}
           </div>
+          )}
         </div>
       </section>
 
