@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useEffect, useId, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Icons from "./Icons";
-import { demoFormSchema, localToday, type DemoForm } from "@/libs/demo";
+import { DatePicker } from "./ui/DatePicker";
+import { PhoneCodeSelect } from "./ui/PhoneCodeSelect";
+import { demoFormSchema, firstBookableDay, type DemoForm } from "@/libs/demo";
 
 /**
  * "Book a demo": the hero's button and the request form in a modal — the
@@ -53,7 +55,7 @@ function BookDemoModal({ onClose }: { onClose: () => void }) {
       <div className="absolute inset-0 bg-[rgba(12,22,38,0.45)] backdrop-blur-[2px]" onClick={onClose} aria-hidden />
       <div
         ref={panel}
-        className="relative z-10 max-h-[calc(100dvh-2rem)] w-full max-w-130 overflow-y-auto rounded-2xl border border-line bg-surface p-5 shadow-[0_30px_70px_-20px_rgba(12,22,38,0.45)] sm:p-6"
+        className="relative z-10 max-h-[calc(100dvh-2rem)] w-full max-w-140 overflow-y-auto rounded-2xl border border-line bg-surface p-5 shadow-[0_30px_70px_-20px_rgba(12,22,38,0.45)] sm:p-6"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 items-start gap-3">
@@ -127,6 +129,7 @@ function DemoFormBody({ onCancel, onSent }: { onCancel: () => void; onSent: () =
   const [failure, setFailure] = useState<string | null>(null);
   const {
     register,
+    control,
     handleSubmit,
     watch,
     setError,
@@ -134,7 +137,7 @@ function DemoFormBody({ onCancel, onSent }: { onCancel: () => void; onSent: () =
   } = useForm<DemoForm>({
     resolver: zodResolver(demoFormSchema),
     mode: "onTouched",
-    defaultValues: { institutionName: "", workEmail: "", mobileNumber: "", preferredDate: "", notes: "" },
+    defaultValues: { institutionName: "", workEmail: "", dialCode: "+1", mobileNumber: "", preferredDate: "", notes: "" },
   });
   const method = watch("contactMethod");
   const notes = watch("notes") ?? "";
@@ -157,12 +160,22 @@ function DemoFormBody({ onCancel, onSent }: { onCancel: () => void; onSent: () =
     }
   });
 
-  const invalid = (name: keyof DemoForm, id: string) => ({ "aria-invalid": Boolean(errors[name]), "aria-describedby": errors[name] ? `${id}-error` : undefined });
+  const invalid = (name: keyof DemoForm, id: string) => ({
+    "aria-invalid": Boolean(errors[name]),
+    "aria-describedby": errors[name] ? `${id}-error` : undefined,
+  });
 
   return (
     <form onSubmit={submit} noValidate className="mt-5 flex flex-col gap-4">
       <Field id={ids.institution} label="Institution name" error={errors.institutionName?.message}>
-        <input id={ids.institution} autoComplete="organization" placeholder="e.g. Northridge University" className={FIELD} {...register("institutionName")} {...invalid("institutionName", ids.institution)} />
+        <input
+          id={ids.institution}
+          autoComplete="organization"
+          placeholder="e.g. Northridge University"
+          className={FIELD}
+          {...register("institutionName")}
+          {...invalid("institutionName", ids.institution)}
+        />
       </Field>
 
       <fieldset className="m-0 border-0 p-0">
@@ -192,20 +205,61 @@ function DemoFormBody({ onCancel, onSent }: { onCancel: () => void; onSent: () =
         ) : null}
       </fieldset>
 
-      {method === "email" ? (
-        <Field id={ids.email} label="Work email" error={errors.workEmail?.message}>
-          <input id={ids.email} type="email" autoComplete="email" placeholder="you@institution.edu" className={FIELD} {...register("workEmail")} {...invalid("workEmail", ids.email)} />
+      {/* The contact detail for the chosen method sits beside the date. */}
+      <div className={`grid grid-cols-1 gap-4 ${method ? "sm:grid-cols-2" : ""}`}>
+        {method === "email" ? (
+          <Field id={ids.email} label="Work email" error={errors.workEmail?.message}>
+            <input
+              id={ids.email}
+              type="email"
+              autoComplete="email"
+              placeholder="you@institution.edu"
+              className={FIELD}
+              {...register("workEmail")}
+              {...invalid("workEmail", ids.email)}
+            />
+          </Field>
+        ) : null}
+        {method === "call" ? (
+          <Field id={ids.mobile} label="Mobile number" error={errors.mobileNumber?.message}>
+            <div
+              className={`flex h-11 items-stretch rounded-[10px] border bg-surface transition-[border,box-shadow] focus-within:border-brand focus-within:ring-3 focus-within:ring-brand/15 ${
+                errors.mobileNumber ? "border-danger" : "border-line-strong"
+              }`}
+            >
+              <Controller name="dialCode" control={control} render={({ field }) => <PhoneCodeSelect value={field.value} onChange={field.onChange} />} />
+              <input
+                id={ids.mobile}
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel-national"
+                placeholder="555 010 0199"
+                className="min-w-0 flex-1 rounded-r-[10px] border-0 bg-transparent px-3 text-[14px] text-ink outline-none placeholder:text-faint"
+                {...register("mobileNumber")}
+                {...invalid("mobileNumber", ids.mobile)}
+              />
+            </div>
+          </Field>
+        ) : null}
+        <Field id={ids.date} label="Preferred date" error={errors.preferredDate?.message}>
+          <Controller
+            name="preferredDate"
+            control={control}
+            render={({ field }) => (
+              <DatePicker
+                id={ids.date}
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                min={firstBookableDay()}
+                invalid={Boolean(errors.preferredDate)}
+                describedBy={errors.preferredDate ? `${ids.date}-error` : undefined}
+                className={`${FIELD} h-11`}
+              />
+            )}
+          />
         </Field>
-      ) : null}
-      {method === "call" ? (
-        <Field id={ids.mobile} label="Mobile number" error={errors.mobileNumber?.message}>
-          <input id={ids.mobile} type="tel" autoComplete="tel" placeholder="+1 555 010 0199" className={FIELD} {...register("mobileNumber")} {...invalid("mobileNumber", ids.mobile)} />
-        </Field>
-      ) : null}
-
-      <Field id={ids.date} label="Preferred date" error={errors.preferredDate?.message}>
-        <input id={ids.date} type="date" min={localToday()} className={FIELD} {...register("preferredDate")} {...invalid("preferredDate", ids.date)} />
-      </Field>
+      </div>
 
       <Field id={ids.notes} label="Notes" optional error={errors.notes?.message}>
         <textarea
@@ -230,10 +284,18 @@ function DemoFormBody({ onCancel, onSent }: { onCancel: () => void; onSent: () =
       ) : null}
 
       <div className="mt-2 flex flex-wrap justify-end gap-2">
-        <button type="button" onClick={onCancel} className={`${BTN} h-10.5 border border-line-strong bg-surface px-4.5 text-[13.5px] text-ink hover:bg-surface-2`}>
+        <button
+          type="button"
+          onClick={onCancel}
+          className={`${BTN} h-10.5 border border-line-strong bg-surface px-4.5 text-[13.5px] text-ink hover:bg-surface-2`}
+        >
           Cancel
         </button>
-        <button type="submit" disabled={isSubmitting} className={`${BTN} h-10.5 bg-brand px-4.5 text-[13.5px] text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]`}>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`${BTN} h-10.5 bg-brand px-4.5 text-[13.5px] text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]`}
+        >
           {isSubmitting ? "Sending…" : "Request demo"}
           {isSubmitting ? null : <Icons.ChevronRight size={14} />}
         </button>
