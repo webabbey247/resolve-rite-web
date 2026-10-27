@@ -122,6 +122,16 @@ body {
   padding: 0;
 }
 
+/* Header menu links jump to their section: glide there, and stop below the sticky header. */
+html {
+  scroll-padding-top: 72px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   font-family: var(--rr-sans);
   background: var(--rr-bg);

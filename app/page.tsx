@@ -24,13 +24,14 @@ import {
   ratingAvatars,
   ratingLogos,
 } from "@/libs/data";
-import { SIGNUP_URL, getPricingPlans } from "@/libs/plans";
+import { getPricingPlans } from "@/libs/plans";
+import { SIGNIN_URL, SIGNUP_URL } from "@/libs/site-urls";
 
 export default async function PageLanding() {
   const pricingPlans = await getPricingPlans();
   return (
     <div className="relative min-h-full w-full overflow-hidden bg-bg">
-      <Header />
+      <Header signInUrl={SIGNIN_URL} signUpUrl={SIGNUP_URL} />
 
       {/* Hero */}
       <section className="px-6 pb-12 pt-22 nav:px-12">
@@ -52,10 +53,10 @@ export default async function PageLanding() {
               on with a structured, transparent, auditable system — from intake to outcome.
             </p>
             <div className="mt-7.5 flex flex-wrap gap-3">
-              <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-12.5 px-6 rounded-xl text-[15px] bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]">
+              <a href={SIGNUP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-12.5 px-6 rounded-xl text-[15px] bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]">
                 Start onboarding
                 <Icons.ChevronRight size={16} />
-              </button>
+              </a>
               <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-12.5 px-6 rounded-xl text-[15px] bg-surface text-ink border border-line-strong hover:bg-surface-2">
                 <Icons.Chat size={16} /> Book a demo
               </button>
@@ -93,7 +94,7 @@ export default async function PageLanding() {
       </section>
 
       {/* Who it's for */}
-      <section className="bg-surface px-6 py-18 nav:px-12">
+      <section id="who-its-for" className="bg-surface px-6 py-18 nav:px-12">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-180 text-center">
             <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">Who it&apos;s for</div>
@@ -147,7 +148,7 @@ export default async function PageLanding() {
       </section>
 
       {/* Features grid — bento */}
-      <section className="relative overflow-hidden bg-brand px-6 py-22 text-white nav:px-12">
+      <section id="product" className="relative overflow-hidden bg-brand px-6 py-22 text-white nav:px-12">
         <div className="absolute -right-35 -top-35 text-white opacity-4">
           <Icons.Scale size={560} />
         </div>
@@ -360,7 +361,7 @@ export default async function PageLanding() {
       </section>
 
       {/* Security */}
-      <section className="bg-surface px-6 py-22 nav:px-12">
+      <section id="security" className="bg-surface px-6 py-22 nav:px-12">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-8">
             <div className="max-w-150">
@@ -600,7 +601,7 @@ export default async function PageLanding() {
       </section>
 
       {/* Pricing */}
-      <section className="px-6 pb-22 pt-18 nav:px-12">
+      <section id="pricing" className="px-6 pb-22 pt-18 nav:px-12">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-160 text-center">
             <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">Plans</div>
@@ -671,7 +672,7 @@ export default async function PageLanding() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-surface px-6 py-18 nav:px-12">
+      <section id="resources" className="bg-surface px-6 py-18 nav:px-12">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 nav:grid-cols-[1fr_1.4fr] nav:gap-16">
           <div>
             <div className="text-[11.5px] font-bold uppercase tracking-[0.13em] text-gold">FAQ</div>

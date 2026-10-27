@@ -5,10 +5,19 @@ import Icons from "../Icons";
 import { RRWordmark } from "../shared";
 import ThemeToggle from "../ThemeToggle";
 
+// Each menu item jumps to its section of the landing page (app/page.tsx).
+const ITEMS = [
+  { label: "Product", href: "#product" },
+  { label: "Who it's for", href: "#who-its-for" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "Security", href: "#security" },
+  { label: "Resources", href: "#resources" },
+];
+
 // ── Marketing top nav — sticky, blurs + tints on scroll, collapses to a
-//    hamburger menu below the `nav` (920px) breakpoint.
-export function Header() {
-  const items = ["Product", "Who it's for", "Pricing", "Security", "Resources"];
+//    hamburger menu below the `nav` (920px) breakpoint. Sign-in and sign-up
+//    URLs come from the server (SIGNIN_URL / SIGNUP_URL, libs/site-urls.ts).
+export function Header({ signInUrl, signUpUrl }: { signInUrl: string; signUpUrl: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -39,13 +48,14 @@ export function Header() {
       <div className="flex items-center gap-8 px-6 py-3.5 nav:px-12">
         <RRWordmark />
         <div className="ml-6 hidden gap-1 nav:flex">
-          {items.map((i) => (
-            <button
-              key={i}
+          {ITEMS.map((i) => (
+            <a
+              key={i.href}
+              href={i.href}
               className="rounded-lg px-3 py-2 text-[13.5px] font-medium text-ink-2 transition-colors hover:text-ink"
             >
-              {i}
-            </button>
+              {i.label}
+            </a>
           ))}
         </div>
         <div className="flex-1" />
@@ -53,8 +63,8 @@ export function Header() {
         {/* Desktop actions — wrapped so the `hidden` utility isn't overridden
             by the button's own `inline-flex` display. */}
         <div className="hidden items-center gap-3 nav:flex">
-          <a href="https://portal.resolverite.app/auth/login" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-auto px-2.5 py-2 rounded-[10px] text-[13.5px] bg-transparent hover:text-ink">Sign in</a>
-          <a href="https://portal.resolverite.app/auth/register" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-9 px-3.5 rounded-[10px] text-[13px] bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]">
+          <a href={signInUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-auto px-2.5 py-2 rounded-[10px] text-[13.5px] bg-transparent hover:text-ink">Sign in</a>
+          <a href={signUpUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-9 px-3.5 rounded-[10px] text-[13px] bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388]">
             Get started
             <Icons.ChevronRight size={14} />
           </a>
@@ -78,18 +88,19 @@ export function Header() {
           id="mobile-nav"
           className="flex flex-col gap-1 border-t border-line px-6 py-4 nav:hidden"
         >
-          {items.map((i) => (
-            <button
-              key={i}
+          {ITEMS.map((i) => (
+            <a
+              key={i.href}
+              href={i.href}
               onClick={() => setMenuOpen(false)}
               className="rounded-lg px-3 py-2.5 text-left text-[15px] font-medium text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink"
             >
-              {i}
-            </button>
+              {i.label}
+            </a>
           ))}
           <div className="mt-3 flex flex-col gap-2 border-t border-line pt-4">
-            <a href="https://portal.resolverite.app/auth/login" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] bg-surface text-ink border border-line-strong hover:bg-surface-2 w-full">Sign in</a>
-            <a href="https://portal.resolverite.app/auth/register" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388] w-full">
+            <a href={signInUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] bg-surface text-ink border border-line-strong hover:bg-surface-2 w-full">Sign in</a>
+            <a href={signUpUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-10.5 px-4.5 rounded-[10px] text-[13.5px] bg-brand text-white shadow-[0_1px_2px_rgba(20,43,73,0.18)] hover:bg-brand-strong dark:hover:bg-[#2c5388] w-full">
               Get started
               <Icons.ChevronRight size={14} />
             </a>

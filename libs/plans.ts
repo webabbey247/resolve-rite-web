@@ -1,4 +1,5 @@
 import { siteSignatureHeaders } from "@/libs/site-signature";
+import { SIGNUP_URL } from "@/libs/site-urls";
 
 /**
  * Subscription plans, read from the ResolveRite console's public catalogue
@@ -9,9 +10,6 @@ import { siteSignatureHeaders } from "@/libs/site-signature";
  */
 
 export const CONSOLE_URL = (process.env.CONSOLE_URL ?? "https://console.resolverite.app").replace(/\/+$/, "");
-
-/** Where "Get started" / "Start trial" send visitors — the same sign-up as the header. */
-export const SIGNUP_URL = process.env.SIGNUP_URL || "https://portal.resolverite.app/auth/register";
 
 /** Where "Contact sales" goes (a mailto: or a booking page). */
 const SALES_URL = process.env.SALES_URL || "mailto:support@resolverite.app";
