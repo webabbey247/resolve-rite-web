@@ -26,6 +26,7 @@ import {
 } from "@/libs/data";
 import { getPricingPlans } from "@/libs/plans";
 import { SIGNIN_URL, SIGNUP_URL } from "@/libs/site-urls";
+import { BookDemoButton } from "@/components/BookDemo";
 
 export default async function PageLanding() {
   const pricingPlans = await getPricingPlans();
@@ -57,9 +58,7 @@ export default async function PageLanding() {
                 Start onboarding
                 <Icons.ChevronRight size={16} />
               </a>
-              <button className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-12.5 px-6 rounded-xl text-[15px] bg-surface text-ink border border-line-strong hover:bg-surface-2">
-                <Icons.Chat size={16} /> Book a demo
-              </button>
+              <BookDemoButton className="inline-flex items-center justify-center gap-2 font-semibold tracking-[-0.005em] whitespace-nowrap transition-[background,box-shadow,transform,opacity] duration-160 ease-[ease] active:translate-y-px h-12.5 px-6 rounded-xl text-[15px] bg-surface text-ink border border-line-strong hover:bg-surface-2" />
             </div>
             <div className="mt-6 flex items-center gap-4 text-[12.5px] text-muted">
               <div className="flex">
