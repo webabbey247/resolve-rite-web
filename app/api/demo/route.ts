@@ -1,4 +1,4 @@
-import { demoFormSchema, fullMobile } from "@/libs/demo";
+import { demoFormSchema, fullMobile, isTimeZone } from "@/libs/demo";
 import { CONSOLE_URL } from "@/libs/plans";
 import { siteSignatureHeaders } from "@/libs/site-signature";
 
@@ -57,6 +57,9 @@ export async function POST(request: Request) {
     workEmail: f.contactMethod === "email" ? f.workEmail : "",
     mobileNumber: f.contactMethod === "call" ? fullMobile(f.dialCode, f.mobileNumber) : "",
     preferredDate: f.preferredDate,
+    preferredTime: f.preferredTime,
+    // The slot is in the visitor's own time; the console works out the exact moment from it.
+    timeZone: typeof body.timeZone === "string" && isTimeZone(body.timeZone) ? body.timeZone : "UTC",
     notes: f.notes,
     clientIp: visitorIp(request),
     userAgent: request.headers.get("user-agent")?.slice(0, 400) ?? null,

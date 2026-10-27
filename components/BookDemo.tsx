@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Icons from "./Icons";
 import { DatePicker } from "./ui/DatePicker";
 import { PhoneCodeSelect } from "./ui/PhoneCodeSelect";
-import { demoFormSchema, firstBookableDay, type DemoForm } from "@/libs/demo";
+import { DEMO_SLOTS, demoFormSchema, firstBookableDay, visitorTimeZone, type DemoForm } from "@/libs/demo";
 
 /**
  * "Book a demo": the hero's button and the request form in a modal — the
@@ -132,15 +132,18 @@ function DemoFormBody({ onCancel, onSent }: { onCancel: () => void; onSent: () =
     control,
     handleSubmit,
     watch,
+    setValue,
     setError,
     formState: { errors, isSubmitting },
   } = useForm<DemoForm>({
     resolver: zodResolver(demoFormSchema),
     mode: "onTouched",
-    defaultValues: { institutionName: "", workEmail: "", dialCode: "+1", mobileNumber: "", preferredDate: "", notes: "" },
+    defaultValues: { institutionName: "", workEmail: "", dialCode: "+1", mobileNumber: "", preferredDate: "", preferredTime: "", notes: "" },
   });
   const method = watch("contactMethod");
   const notes = watch("notes") ?? "";
+  const time = watch("preferredTime");
+  const dateError = errors.preferredDate?.message ?? errors.preferredTime?.message;
   const website = useRef<HTMLInputElement>(null);
 
   const submit = handleSubmit(async (values) => {
@@ -149,7 +152,7 @@ function DemoFormBody({ onCancel, onSent }: { onCancel: () => void; onSent: () =
       const res = await fetch("/api/demo", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...values, website: website.current?.value ?? "" }),
+        body: JSON.stringify({ ...values, timeZone: visitorTimeZone(), website: website.current?.value ?? "" }),
       });
       const body = (await res.json().catch(() => null)) as { error?: string; fields?: Partial<Record<keyof DemoForm, string>> } | null;
       if (res.ok) return onSent();
@@ -241,7 +244,7 @@ function DemoFormBody({ onCancel, onSent }: { onCancel: () => void; onSent: () =
             </div>
           </Field>
         ) : null}
-        <Field id={ids.date} label="Preferred date" error={errors.preferredDate?.message}>
+        <Field id={ids.date} label="Preferred date & time" error={dateError}>
           <Controller
             name="preferredDate"
             control={control}
@@ -252,8 +255,12 @@ function DemoFormBody({ onCancel, onSent }: { onCancel: () => void; onSent: () =
                 onChange={field.onChange}
                 onBlur={field.onBlur}
                 min={firstBookableDay()}
-                invalid={Boolean(errors.preferredDate)}
-                describedBy={errors.preferredDate ? `${ids.date}-error` : undefined}
+                slots={DEMO_SLOTS}
+                time={time}
+                onTimeChange={(t) => setValue("preferredTime", t, { shouldValidate: true, shouldTouch: true })}
+                timeZone={visitorTimeZone()}
+                invalid={Boolean(dateError)}
+                describedBy={dateError ? `${ids.date}-error` : undefined}
                 className={`${FIELD} h-11`}
               />
             )}

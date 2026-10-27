@@ -8,7 +8,8 @@ import Icons from "../Icons";
  * A calendar date picker in the site's design (instead of the browser's own),
  * for working days: future days only (from `min` on; earlier days are left
  * out), Monday to Friday — Saturday and Sunday show, greyed out, but can't be
- * picked. The value is a plain day, "YYYY-MM-DD". The calendar
+ * picked. With `slots`, picking a day goes on to that day's times in the
+ * same panel (`time`, "HH:mm"), shown in the visitor's own time zone. The value is a plain day, "YYYY-MM-DD". The calendar
  * renders into document.body, so a scrolling modal can't clip it. Keyboard:
  * arrows move by working day/week, PageUp/PageDown by month, Home/End to
  * Monday/Friday, Enter picks, Esc closes.
@@ -49,6 +50,11 @@ const toWorkday = (k: string, dir: 1 | -1 = 1) => {
   while (!isWorkday(d)) d = addDays(d, dir);
   return d;
 };
+/** "09:30" → "9:30 AM" (or the visitor's own clock style). */
+export const timeLabel = (hhmm: string) => {
+  const [h, m] = hhmm.split(":").map(Number);
+  return new Date(2000, 0, 1, h, m).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+};
 const longLabel = (k: string) => fromKey(k).toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short", year: "numeric" });
 
 function CalendarGlyph() {
@@ -80,10 +86,20 @@ export function DatePicker({
   invalid,
   describedBy,
   className,
+  slots,
+  time,
+  onTimeChange,
+  timeZone,
 }: {
   id: string;
   value: string;
   onChange: (value: string) => void;
+  /** The times a day offers, "HH:mm". */
+  slots: readonly string[];
+  time: string;
+  onTimeChange: (time: string) => void;
+  /** The visitor's time zone, named under the slots. */
+  timeZone: string;
   onBlur?: () => void;
   min: string;
   invalid?: boolean;
@@ -91,6 +107,7 @@ export function DatePicker({
   className: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [view, setView] = useState<"days" | "times">("days");
   const [focus, setFocus] = useState(value || min);
   const [box, setBox] = useState<{ top: number; left: number } | null>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -108,12 +125,14 @@ export function DatePicker({
 
   useLayoutEffect(() => {
     if (open) place();
-  }, [open, place, focus]);
+  }, [open, place, focus, view]);
 
   // The focused day follows the arrow keys.
   useEffect(() => {
-    if (open) panel.current?.querySelector<HTMLButtonElement>(`[data-day="${focus}"]`)?.focus();
-  }, [open, focus]);
+    if (!open) return;
+    const target = view === "days" ? `[data-day="${focus}"]` : time ? `[data-time="${time}"]` : "[data-time]";
+    panel.current?.querySelector<HTMLButtonElement>(target)?.focus();
+  }, [open, focus, view, time]);
 
   const close = useCallback(
     (refocus = true) => {
@@ -151,7 +170,7 @@ export function DatePicker({
   const pick = (k: string) => {
     if (k < min || !isWorkday(k)) return;
     onChange(k);
-    close();
+    setView("times");
   };
 
   const onGridKey = (e: React.KeyboardEvent) => {
@@ -211,12 +230,15 @@ export function DatePicker({
         aria-describedby={describedBy}
         onClick={() => {
           setFocus(value || min);
+          setView("days");
           setOpen((o) => !o);
         }}
         className={`${className} flex items-center gap-2.5 text-left ${invalid ? "border-danger" : ""}`}
       >
         <CalendarGlyph />
-        <span className={`min-w-0 flex-1 truncate ${value ? "text-ink" : "text-faint"}`}>{value ? longLabel(value) : "Choose a date"}</span>
+        <span className={`min-w-0 flex-1 truncate ${value ? "text-ink" : "text-faint"}`}>
+          {value ? `${longLabel(value)}${time ? ` · ${timeLabel(time)}` : ""}` : "Choose a date and time"}
+        </span>
         <Icons.ChevronDown size={14} className="shrink-0 text-muted" />
       </button>
       {open
@@ -224,82 +246,123 @@ export function DatePicker({
             <div
               ref={panel}
               role="dialog"
-              aria-label="Choose a date"
+              aria-label={view === "days" ? "Choose a date" : "Choose a time"}
               style={box ? { top: box.top, left: box.left, width: Math.min(PANEL_W, window.innerWidth - MARGIN * 2) } : { top: -9999, left: -9999 }}
               className="fixed z-[70] rounded-2xl border border-line-strong bg-surface p-3.5 shadow-[0_18px_40px_-12px_rgba(12,22,38,0.35)]"
             >
-              <div className="mb-2.5 flex items-center justify-between">
-                <button
-                  type="button"
-                  aria-label="Previous month"
-                  disabled={atMinMonth}
-                  onClick={() => setFocus((f) => (toWorkday(addMonths(f, -1)) < min ? min : toWorkday(addMonths(f, -1))))}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border-0 bg-transparent text-ink-2 hover:bg-surface-2 disabled:pointer-events-none disabled:opacity-30"
-                >
-                  <Icons.ChevronRight size={16} className="rotate-180" />
-                </button>
-                <span className="font-serif text-[16px] font-semibold text-ink" aria-live="polite">
-                  {shown.toLocaleDateString(undefined, { month: "long", year: "numeric" })}
-                </span>
-                <button
-                  type="button"
-                  aria-label="Next month"
-                  onClick={() => setFocus((f) => toWorkday(addMonths(f, 1)))}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border-0 bg-transparent text-ink-2 hover:bg-surface-2"
-                >
-                  <Icons.ChevronRight size={16} />
-                </button>
-              </div>
-              <div role="grid" aria-label={shown.toLocaleDateString(undefined, { month: "long", year: "numeric" })} onKeyDown={onGridKey}>
-                <div role="row" className="grid grid-cols-7 gap-1">
-                  {WEEKDAYS.map((w) => (
-                    <span
-                      key={w}
-                      role="columnheader"
-                      className={`py-1 text-center text-[11px] font-semibold uppercase tracking-[0.06em] ${w === "Sa" || w === "Su" ? "text-faint/50" : "text-faint"}`}
+              {view === "times" && value ? (
+                <>
+                  <div className="mb-3 flex items-center gap-2">
+                    <button
+                      type="button"
+                      aria-label="Back to the calendar"
+                      onClick={() => setView("days")}
+                      className="flex h-8 w-8 items-center justify-center rounded-lg border-0 bg-transparent text-ink-2 hover:bg-surface-2"
                     >
-                      {w}
+                      <Icons.ChevronRight size={16} className="rotate-180" />
+                    </button>
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-serif text-[16px] font-semibold text-ink">{longLabel(value)}</span>
+                      <span className="block text-[11.5px] text-muted">Times in your time zone · {timeZone}</span>
                     </span>
-                  ))}
-                </div>
-                {weeks.map((week) => (
-                  <div key={week.find((c) => c?.open)!.k} role="row" className="mt-1 grid grid-cols-7 gap-1">
-                    {week.map((cell, i) =>
-                      !cell ? (
-                        <span key={`blank-${i}`} aria-hidden className="h-9" />
-                      ) : cell.open ? (
-                        <button
-                          key={cell.k}
-                          type="button"
-                          role="gridcell"
-                          data-day={cell.k}
-                          tabIndex={cell.k === focus ? 0 : -1}
-                          aria-selected={cell.k === value}
-                          aria-label={longLabel(cell.k)}
-                          onClick={() => pick(cell.k)}
-                          className={`flex h-9 items-center justify-center rounded-lg border-0 text-[13.5px] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-brand/40 ${
-                            cell.k === value ? "bg-brand font-semibold text-white" : "bg-transparent text-ink hover:bg-surface-2"
-                          }`}
-                        >
-                          {fromKey(cell.k).getDate()}
-                        </button>
-                      ) : (
-                        // Weekends: shown, greyed out, never picked.
-                        <span
-                          key={cell.k}
-                          role="gridcell"
-                          aria-disabled="true"
-                          aria-label={`${longLabel(cell.k)}, unavailable — demos run Monday to Friday`}
-                          title="Demos run Monday to Friday"
-                          className="flex h-9 cursor-not-allowed items-center justify-center rounded-lg bg-surface-2/70 text-[13.5px] text-faint/70"
-                        >
-                          {fromKey(cell.k).getDate()}
-                        </span>
-                      ),
-                    )}
                   </div>
-                ))}
-              </div>
+                  <div role="listbox" aria-label={`Times on ${longLabel(value)}`} className="grid max-h-60 grid-cols-4 gap-1.5 overflow-y-auto">
+                    {slots.map((t) => (
+                      <button
+                        key={t}
+                        type="button"
+                        role="option"
+                        data-time={t}
+                        aria-selected={t === time}
+                        onClick={() => {
+                          onTimeChange(t);
+                          close();
+                        }}
+                        className={`h-9 rounded-lg border text-[13px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-brand/40 ${
+                          t === time ? "border-brand bg-brand text-white" : "border-line-strong bg-surface text-ink hover:bg-surface-2"
+                        }`}
+                      >
+                        {timeLabel(t)}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="mb-2.5 flex items-center justify-between">
+                    <button
+                      type="button"
+                      aria-label="Previous month"
+                      disabled={atMinMonth}
+                      onClick={() => setFocus((f) => (toWorkday(addMonths(f, -1)) < min ? min : toWorkday(addMonths(f, -1))))}
+                      className="flex h-8 w-8 items-center justify-center rounded-lg border-0 bg-transparent text-ink-2 hover:bg-surface-2 disabled:pointer-events-none disabled:opacity-30"
+                    >
+                      <Icons.ChevronRight size={16} className="rotate-180" />
+                    </button>
+                    <span className="font-serif text-[16px] font-semibold text-ink" aria-live="polite">
+                      {shown.toLocaleDateString(undefined, { month: "long", year: "numeric" })}
+                    </span>
+                    <button
+                      type="button"
+                      aria-label="Next month"
+                      onClick={() => setFocus((f) => toWorkday(addMonths(f, 1)))}
+                      className="flex h-8 w-8 items-center justify-center rounded-lg border-0 bg-transparent text-ink-2 hover:bg-surface-2"
+                    >
+                      <Icons.ChevronRight size={16} />
+                    </button>
+                  </div>
+                  <div role="grid" aria-label={shown.toLocaleDateString(undefined, { month: "long", year: "numeric" })} onKeyDown={onGridKey}>
+                    <div role="row" className="grid grid-cols-7 gap-1">
+                      {WEEKDAYS.map((w) => (
+                        <span
+                          key={w}
+                          role="columnheader"
+                          className={`py-1 text-center text-[11px] font-semibold uppercase tracking-[0.06em] ${w === "Sa" || w === "Su" ? "text-faint/50" : "text-faint"}`}
+                        >
+                          {w}
+                        </span>
+                      ))}
+                    </div>
+                    {weeks.map((week) => (
+                      <div key={week.find((c) => c?.open)!.k} role="row" className="mt-1 grid grid-cols-7 gap-1">
+                        {week.map((cell, i) =>
+                          !cell ? (
+                            <span key={`blank-${i}`} aria-hidden className="h-9" />
+                          ) : cell.open ? (
+                            <button
+                              key={cell.k}
+                              type="button"
+                              role="gridcell"
+                              data-day={cell.k}
+                              tabIndex={cell.k === focus ? 0 : -1}
+                              aria-selected={cell.k === value}
+                              aria-label={longLabel(cell.k)}
+                              onClick={() => pick(cell.k)}
+                              className={`flex h-9 items-center justify-center rounded-lg border-0 text-[13.5px] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-brand/40 ${
+                                cell.k === value ? "bg-brand font-semibold text-white" : "bg-transparent text-ink hover:bg-surface-2"
+                              }`}
+                            >
+                              {fromKey(cell.k).getDate()}
+                            </button>
+                          ) : (
+                            // Weekends: shown, greyed out, never picked.
+                            <span
+                              key={cell.k}
+                              role="gridcell"
+                              aria-disabled="true"
+                              aria-label={`${longLabel(cell.k)}, unavailable — demos run Monday to Friday`}
+                              title="Demos run Monday to Friday"
+                              className="flex h-9 cursor-not-allowed items-center justify-center rounded-lg bg-surface-2/70 text-[13.5px] text-faint/70"
+                            >
+                              {fromKey(cell.k).getDate()}
+                            </span>
+                          ),
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>,
             document.body,
           )

@@ -10,6 +10,22 @@ import { z } from "zod";
  */
 
 export const DEMO_CONTACT_METHODS = ["email", "call"] as const;
+
+/** Demo times: every half hour from 9:00 to 16:30 (the last ends at 17:00), in the visitor's own time zone. */
+export const DEMO_SLOTS = Array.from({ length: 16 }, (_, i) => `${String(9 + Math.floor(i / 2)).padStart(2, "0")}:${i % 2 ? "30" : "00"}`);
+
+/** The visitor's IANA time zone, e.g. "Africa/Lagos" (sent with the request). */
+export const visitorTimeZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+
+/** A real IANA time zone name. */
+export const isTimeZone = (tz: string) => {
+  try {
+    new Intl.DateTimeFormat("en-US", { timeZone: tz });
+    return tz.length <= 64;
+  } catch {
+    return false;
+  }
+};
 export type DemoContactMethod = (typeof DEMO_CONTACT_METHODS)[number];
 
 const ymd = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -47,6 +63,10 @@ export const demoFormSchema = z
       .string()
       .min(1, "Choose a date")
       .regex(/^\d{4}-\d{2}-\d{2}$/, "Choose a date"),
+    preferredTime: z
+      .string()
+      .min(1, "Choose a time")
+      .refine((t) => DEMO_SLOTS.includes(t), "Choose one of the times shown"),
     notes: z.string().trim().max(1000, "Keep notes under 1,000 characters"),
   })
   .superRefine((v, ctx) => {
